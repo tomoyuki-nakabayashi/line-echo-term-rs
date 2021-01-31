@@ -57,7 +57,9 @@ fn run(port_name: &str, baud_rate: u32) -> Result<(), Box<dyn Error>> {
 
         let mut buf = [0; 1];
         match port.read(&mut buf) {
-            Ok(_) => io::stdout().write_all(&buf).unwrap(),
+            Ok(_) => {
+                io::stdout().write_all(&buf).unwrap()
+            },
             Err(_e) => {},
         }
     }
@@ -77,7 +79,10 @@ fn input_service() -> mpsc::Receiver<Vec<u8>> {
                     drop(tx); // EOF, drop the channel and stop the thread
                     break;
                 }
-                Ok(_) => tx.send(buffer).unwrap(), // send bytes
+                Ok(t) => {
+                    buffer.resize(t, 0);
+                    tx.send(buffer).unwrap(); // send bytes
+                },
                 Err(e) => panic!(e),
             }
         }
