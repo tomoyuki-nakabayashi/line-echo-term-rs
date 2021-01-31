@@ -1,0 +1,9 @@
+[package]
+name = "line-echo-term"
+version = "0.1.0"
+authors = ["tomoyuki-nakabayashi <tomo.wait.for.it.yuki@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+serialport = "4.0"
+clap = "2.33"
